@@ -1,0 +1,58 @@
+<div class="container">   
+    
+    <div>
+        <%= form_for(:user) do |f| %>
+            <%= f.collection_check_boxes :ids, @users, :id, :name %>
+            <%= f.submit 'Filter' %>
+        <% end %>
+    </div>
+
+    </br>
+    <h1>Meeting audio segment data for Important Decision Meeting at 12pm on 24 June 2020</h1>
+    </br>
+    <div>
+        <table>
+            <thead>
+                <tr>
+                    <th>User</th>
+                    <th>Audio Start</th>
+                    <th>Audio End</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% @users.each do | user | %>
+                    <% user.messages.each do |message|%>
+                    <tr>
+                        <td><%= user.name%><td/>
+                        <td><%= message.start_audio%><td/>
+                        <td><%= message.end_audio%><td/>
+                    </tr>
+                    <%end%>
+                <%end%>
+            </tbody>
+        </table>
+    </div>
+
+    </br>
+
+    <div>
+        <%= pie_chart @user_total_messages %>
+    </div>
+
+    <hr>  
+
+    <div>
+        <% @average_per_users.each do |user|%>
+            <h2><%= user[0]%></h2>
+            <p>Average: <%= user[1]%> seconds</p>
+        <%end%>
+    </div>
+
+    <hr>
+
+    <div>
+        <h3>User with most/least contributions:</h3>
+        <h5><%= @user_most_least_contributions[0].name%> with <%= @user_most_least_contributions[0].messages.count%> messages</h5>
+        <h5><%= @user_most_least_contributions[-1].name%> with <%= @user_most_least_contributions[-1].messages.count%> messages</h5>
+    </div>
+</div> 

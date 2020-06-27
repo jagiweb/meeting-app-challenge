@@ -1,0 +1,55 @@
+<div class="container"> 
+    <div>
+        <%= link_to "Go Back", "/"%>
+    </div>
+
+    <div>
+        <table>
+            <thead>
+                <tr>
+                    <th>User</th>
+                    <th>Audio Start</th>
+                    <th>Audio End</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% @selected_users.each do | user | %>
+                    <% user.messages.each do |message|%>
+                    <tr>
+                        <td><%= user.name%><td/>
+                        <td><%= message.start_audio%><td/>
+                        <td><%= message.end_audio%><td/>
+                    </tr>
+                    <%end%>
+                <%end%>
+            </tbody>
+        </table>
+    </div>
+
+    </br>
+
+    <div>
+        <%= pie_chart @user_total_messages %>
+    </div>
+
+    <hr>  
+
+    <div>
+        <% @average_per_users.each do |user|%>
+            <h2><%= user[0]%></h2>
+            <p>Average: <%= user[1]%> seconds</p>
+        <%end%>
+    </div>
+
+    <hr>
+
+    <div>
+        <h3>User with most/least contributions:</h3>
+        <h5><%= @user_most_least_contributions[0].name%> with <%= @user_most_least_contributions[0].messages.count%> messages</h5>
+
+        <%if @user_most_least_contributions.count > 1%>
+            <h5><%= @user_most_least_contributions[-1].name%> with <%= @user_most_least_contributions[-1].messages.count%> messages</h5>
+        <%end%>
+        
+    </div>
+</div>
